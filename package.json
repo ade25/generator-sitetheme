@@ -5,16 +5,16 @@
   "keywords": [
     "yeoman-generator"
   ],
-  "homepage": "https://github.com/potzenheimer/generator-diazotheme",
+  "homepage": "https://github.com/ade25/generator-sitetheme",
   "author": {
-    "name": "Christoph Böhner",
+    "name": "Ade25",
     "email": "",
-    "url": "https://github.com/potzenheimer"
+    "url": "https://github.com/ade25"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/potzenheimer/generator-diazotheme.git"
+    "url": "git://github.com/ade25/generator-sitetheme"
   },
   "main": "app/index.js",
   "scripts": {
