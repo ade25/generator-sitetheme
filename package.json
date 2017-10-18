@@ -1,0 +1,51 @@
+{
+  "name": "generator-diazotheme",
+  "version": "1.0.0",
+  "description": "A generator for Yeoman",
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "homepage": "https://github.com/potzenheimer/generator-diazotheme",
+  "author": {
+    "name": "Christoph Böhner",
+    "email": "",
+    "url": "https://github.com/potzenheimer"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/potzenheimer/generator-diazotheme.git"
+  },
+  "main": "app/index.js",
+  "scripts": {
+    "test": "mocha --reporter spec --timeout 3000"
+  },
+  "files": [
+    "app"
+  ],
+  "keywords": [
+    "yeoman-generator",
+    "web",
+    "app",
+    "front-end",
+    "plone",
+    "diazo",
+    "gulp"
+  ],
+  "dependencies": {
+    "chalk": "^1.0.0",
+    "command-exists": "^1.2.2",
+    "generator-jasmine": "^1.0.0",
+    "generator-mocha": "^1.0.0",
+    "mkdirp": "^0.5.1",
+    "underscore.string": "^3.1.1",
+    "wiredep": "^4.0.0",
+    "yeoman-generator": "^1.1.1",
+    "yosay": "^2.0.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.1.0",
+    "yeoman-assert": "^3.0.0",
+    "yeoman-test": "^1.6.0"
+  }
+}

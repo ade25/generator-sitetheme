@@ -1,0 +1,55 @@
+//
+// Basic scaffolding and resets
+// ----------------------------------
+
+
+//** Adjust font weight for initialized webfonts
+body {
+    @include when-inside('.app-fonts-loaded') {
+        font-weight: 300;
+    }
+}
+
+// prevent fake bolds
+b,
+strong {
+    font-weight: 700;
+    @include when-inside('.app-fonts-loaded') {
+        font-weight: 400;
+    }
+}
+
+// Transistion link color on :hover state
+a:hover {
+    transition: color 0.5s linear;
+}
+
+// Optional plone settings and adjustments
+// ---------------------------------------
+
+// Combat plone hidden element class via mixin
+.hidden,
+.hiddenStructure {
+    visibility: hidden;
+}
+
+// Only display content to screen readers
+//
+// See: http://a11yproject.com/posts/how-to-hide-content/
+
+.hiddenStructure {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+    color: #fff;
+    background-color: #000;
+}
+.hiddenStructure a {
+    color: #fff;
+    background-color: #000;
+}
