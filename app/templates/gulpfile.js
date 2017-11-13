@@ -131,12 +131,33 @@ gulp.task('images', () => {
 })
 ;
 
+gulp.task('collect-scripts', () => {
+    return gulp.src(cfg.paths.src + cfg.scripts.src)
+        .pipe($.plumber({
+            errorHandler: function (error) {
+                console.log(error.message);
+                this.emit('end');
+            }
+        }))
+        .pipe(gulp.dest(cfg.paths.dist + 'scripts/'))
+})
+;
+
 gulp.task('fonts', () => {
     return gulp.src(cfg.paths.app + 'assets/fonts/**/*')
         .pipe(gulp.dest('.tmp/fonts'))
         .pipe(gulp.dest(cfg.paths.dist + 'assets/fonts'));
 })
 ;
+
+gulp.task('extras', () => {
+  return gulp.src([
+    'app/*',
+    '!app/*.html'
+  ], {
+    dot: true
+  }).pipe(gulp.dest('dist'));
+});
 
 gulp.task('html', ['replace'], () => {
     return gulp.src(cfg.paths.dev + '{,*/}*.html')

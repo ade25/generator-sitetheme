@@ -22,16 +22,18 @@
   },
   "scripts": {
     "src": [
-        "fontfaceobserver/fontfaceobserver.js",
-        "bootstrap-without-jquery/bootstrap3/bootstrap-without-jquery.js",
-        "lazysizes/lazysizes.js",
-        "flickity/dist/flickity.pkgd.js"
+        "mailcheck/src/mailcheck.js",
+        "JVFloat/jvfloat.js",
+        "hideShowPassword/hideShowPassword.js",
+        "lazysizes/lazysizes-umd.js",
+        "lazysizes/plugins/parent-fit/ls.parent-fit.js",
+        "respimage/respimage.js",
+        "flickity/dist/flickity.pkgd.js",
+        "fontfaceobserver/fontfaceobserver.js"
+
     ],
     "base": [
       "jquery/dist/jquery.js",
-      "modernizr/modernizr.js",
-      "tether/dist/js/tether.min.js",
-      "bootstrap/dist/js/bootstrap.js",
       "fontfaceobserver/fontfaceobserver.js",
       "mailcheck/src/mailcheck.js",
       "JVFloat/jvfloat.js",
