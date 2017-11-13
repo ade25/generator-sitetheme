@@ -2,7 +2,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>
-    {{ page.title }} &middot; <%= name %> Sitetheme
+    {{ page.title }} &middot; <%= title %> Sitetheme
 </title>
 <script>
     window.lazySizesConfig = window.lazySizesConfig || {};
@@ -10,4 +10,4 @@
     window.lazySizesConfig.loadedClass = 'image--loaded';
 </script>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600" rel="stylesheet" />
-<link href="{{ page.base_url }}dist/styles/<%= _.slugify(themeName) %>.min.css" rel="stylesheet">
+<link href="{{ page.base_url }}dist/styles/<%= name %>.min.css" rel="stylesheet">

@@ -1,9 +1,15 @@
 {
-  "name": "generator-diazotheme",
+  "name": "generator-sitetheme",
   "version": "1.0.0",
-  "description": "A generator for Yeoman",
+  "description": "A Yeoman theme generator",
   "keywords": [
-    "yeoman-generator"
+    "yeoman-generator",
+    "web",
+    "app",
+    "front-end",
+    "plone",
+    "diazo",
+    "gulp"
   ],
   "homepage": "https://github.com/ade25/generator-sitetheme",
   "author": {
@@ -22,15 +28,6 @@
   },
   "files": [
     "app"
-  ],
-  "keywords": [
-    "yeoman-generator",
-    "web",
-    "app",
-    "front-end",
-    "plone",
-    "diazo",
-    "gulp"
   ],
   "dependencies": {
     "chalk": "^1.0.0",

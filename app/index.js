@@ -58,6 +58,10 @@ module.exports = class extends Generator {
     }]).then((answers) => {
       this.log('app name', answers.name);
       this.log('correct', answers.correct);
+      // manually deal with the response, get back and store the results.
+      // we change a bit this way of doing to automatically do this in the self.prompt() method.
+      this.projectName = answers.name;
+      this.appName = _s.slugify(_s.humanize(this.projectName));
     });
   }
 
@@ -68,7 +72,6 @@ module.exports = class extends Generator {
     this._writingBabel();
     this._writingGit();
     this._writingEditorConfig();
-    this._writingAppDirectory();
     this._writingThemeComponents();
     this._writingThemeManifest();
     this._writingStyles();
@@ -76,6 +79,7 @@ module.exports = class extends Generator {
     this._writingHtml();
     this._writingReadMe();
     this._writingMisc();
+  }
 
 
   _writingGulpfile() {
@@ -84,7 +88,7 @@ module.exports = class extends Generator {
       this.destinationPath('gulpfile.babel.js'),
       {
         date: (new Date).toISOString().split('T')[0],
-        name: this.pkg.name,
+        name: this.projectName,
         version: this.pkg.version,
         includeBabel: this.options['babel'],
         testFramework: this.options['test-framework']
@@ -94,11 +98,11 @@ module.exports = class extends Generator {
 
   _writingPackageConfig() {
     this.fs.copyTpl(
-      this.templatePath('_config.js'),
-      this.destinationPath('config.js'),
+      this.templatePath('_config.json'),
+      this.destinationPath('config.json'),
       {
         date: (new Date).toISOString().split('T')[0],
-        name: this.pkg.name,
+        name: this.appName,
         version: this.pkg.version,
         includeBabel: this.options['babel'],
         testFramework: this.options['test-framework']
@@ -112,7 +116,8 @@ module.exports = class extends Generator {
       this.destinationPath('package.json'),
       {
         date: (new Date).toISOString().split('T')[0],
-        name: this.pkg.name,
+        name: this.appName,
+        title: this.projectName,
         version: this.pkg.version
       }
     );
@@ -165,7 +170,8 @@ module.exports = class extends Generator {
       this.destinationPath('manifest.cfg'),
       {
         date: (new Date).toISOString().split('T')[0],
-        name: this.pkg.name,
+        name: this.appName,
+        title: this.projectName,
         version: this.pkg.version
       }
     );
@@ -204,7 +210,11 @@ module.exports = class extends Generator {
     mkdirp('app/_includes/base');
     this.fs.copyTpl(
       this.templatePath('includes/base/head.html'),
-      this.destinationPath('app/_includes/base/head.html')
+      this.destinationPath('app/_includes/base/head.html'),
+      {
+        name: this.appName,
+        title: this.projectName
+      }
     );
     this.fs.copy(
       this.templatePath('includes/base/piwik.html'),
@@ -218,8 +228,8 @@ module.exports = class extends Generator {
       this.destinationPath('README.md'),
       {
         date: (new Date).toISOString().split('T')[0],
-        name: this.pkg.name,
-        version: this.pkg.version,
+        name: this.appName,
+        title: this.projectName
       }
     );
   }
@@ -241,83 +251,7 @@ module.exports = class extends Generator {
       skipMessage: this.options['skip-install-message'],
       skipInstall: this.options['skip-install']
     });
-}
-
-
-};
-
-
-var DiazothemeGenerator = module.exports = function DiazothemeGenerator(args, options, config) {
-  yeoman.generators.Base.apply(this, arguments);
-
-  this.on('end', function() {
-    this.yarnInstall();
-  });
-
-  this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
-};
-
-util.inherits(DiazothemeGenerator, yeoman.generators.Base);
-
-DiazothemeGenerator.prototype.askFor = function askFor() {
-  var cb = this.async();
-  // have Yeoman greet the user.
-  console.log(this.yeoman);
-  var prompts = [
-    {
-      name: 'themeName',
-      message: 'What would you like to name your theme?'
-    },
-    {
-      type: 'confirm',
-      name: 'diazoTheme',
-      message: 'Are you creating a Diazo theme?',
-      default: true
-    }
-  ];
-
-  this.prompt(prompts, function(props) {
-    this.themeName = props.themeName;
-    this.diazoTheme = props.diazoTheme;
-
-    cb();
-  }.bind(this));
-};
-
-DiazothemeGenerator.prototype.app = function app() {
-  this.directory('src/', 'app/');
-  this.directory('layouts/', 'app/_layouts/');
-  this.directory('includes/components', 'app/_includes/components');
-  this.directory('includes/layout', 'app/_includes/layout');
-  this.mkdir('app/_includes/base');
-  this.template('includes/base/head.html', 'app/_includes/base/head.html');
-  this.template('includes/base/javascript.html', 'app/_includes/base/javascript.html');
-  this.copy('includes/base/piwik.html', 'app/_includes/base/piwik.html');
-  // this.copy('includes/base/webfonts.html', 'app/_includes/base/webfonts.html');
-  this.directory('overrides/', 'overrides/');
-  this.mkdir('app/scripts');
-  this.copy('main.js', 'app/scripts/main.js');
-  this.copy('app.js', 'app/scripts/app.js');
-  this.copy('gulpfile.js', 'gulpfile.babel.js');
-  this.copy('Gruntfile.js', 'Gruntfile.js');
-  this.copy('Makefile', 'Makefile');
-  this.copy('README.md', 'README.md');
-  this.template('_config.json', 'config.json');
-  this.template('_config.yml', '_config.yml');
-  this.template('_package.json', 'package.json');
-};
-
-DiazothemeGenerator.prototype.projectfiles = function projectfiles() {
-  this.copy('babelrc', '.babelrc');
-  this.copy('gitignore', '.gitignore');
-  this.copy('editorconfig', '.editorconfig');
-  this.copy('jshintrc', 'app/scripts/.jshintrc');
-  this.copy('jscsrc', 'app/scripts/.jscsrc');
-};
-
-DiazothemeGenerator.prototype.patterns = function patterns() {
-  if (this.diazoTheme) {
-    this.template('_manifest.cfg', 'manifest.cfg');
-    this.copy('rules.xml', 'rules.xml');
   }
+
+
 };

@@ -1,10 +1,10 @@
 {
-  "name": "<%= themeName %>",
+  "name": "<%= name %>",
   "paths": {
     "app": "app/",
     "dev": "_site/",
     "dist": "dist/",
-    "diazoPrefix": "/++theme++<%= _.slugify(themeName) %>.sitetheme/",
+    "diazoPrefix": "/++theme++<%= name %>.sitetheme/",
     "src": "node_modules/"
   },
   "favicon": {
@@ -74,27 +74,27 @@
             },
             {
                 "match": "assets/",
-                "replacement": "/++theme++<%= _.slugify(themeName) %>.sitetheme//dist/assets/"
+                "replacement": "/++theme++<%= name %>.sitetheme//dist/assets/"
             },
             {
                 "match": "../styles/",
-                "replacement": "/++theme++<%= _.slugify(themeName) %>.sitetheme/dist/styles/"
+                "replacement": "/++theme++<%= name %>.sitetheme/dist/styles/"
             },
             {
                 "match": "styles/",
-                "replacement": "/++theme++<%= _.slugify(themeName) %>.sitetheme/dist/styles/"
+                "replacement": "/++theme++<%= name %>.sitetheme/dist/styles/"
             },
             {
                 "match": "/styles/",
-                "replacement": "/++theme++<%= _.slugify(themeName) %>.sitetheme/dist/styles/"
+                "replacement": "/++theme++<%= name %>.sitetheme/dist/styles/"
             },
             {
                 "match": "../scripts/",
-                "replacement": "/++theme++<%= _.slugify(themeName) %>.sitetheme/scripts/"
+                "replacement": "/++theme++<%= name %>.sitetheme/scripts/"
             },
             {
                 "match": "scripts/",
-                "replacement": "/++theme++<%= _.slugify(themeName) %>.sitetheme/scripts/"
+                "replacement": "/++theme++<%= name %>.sitetheme/scripts/"
             }
         ]
     }

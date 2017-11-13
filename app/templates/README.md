@@ -1,25 +1,42 @@
-#  Theme
+#  Theme Resource Directory
 
 
-
-
-## Documentation (DEPRECATED)
-
-This theme project uses the Grunt task-runner as a build system to compile a production ready distribution.
+This theme project uses the Gulp task-runner as a build system to compile a production ready distribution.
 
 While the setup builds upon a production ready closed standalone static application it can also generate a Plone deployment build and provide a development environment for Plone integration via Diazo transform engine.
 
-## Available Grunt commands
 
-### grunt dist (Build production ready distribution)
+## Documentation
+
+
+## Available Build Commands
+
+### build (Build production ready distribution)
 
 Regenerates the /dist/ directory with compiled and minified CSS and JavaScript files and builds the index files via Jekyll task. Includes revved css and js resources for cache busting optimized for pagespeed and performance.
 
 **Note**: this task should ideally only be run prior to pushing and deploying changes to the production server and is not suitable for development use since it might require extensive processing time.
 
 ```bash
-$ grunt dist
+$ gulp build
 ```
+
+### dist (Build production ready distribution)
+
+Builds theme style and script dependencies with cache busting parameters for production deployment
+
+**Note**: this task does not rebuidl the whole theme distribution like the corresponding grunt task did, since most of the time we only care for updated styles
+
+```bash
+$ gulp dist
+$ (alias) gulp build-dist
+```
+
+
+## Documentation (DEPRECATED)
+
+TODO: refactor to explain the new task structure
+
 
 ### grunt dev (Just compile CSS and JavaScript)
 
