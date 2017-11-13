@@ -1,8 +1,8 @@
 {
-    "name": "<%= _.slugify(themeName) %>",
-    "description": "Theme and frontend for <%= _.slugify(themeName) %>",
+    "name": "<%= _.slugify(name) %>",
+    "description": "Theme and frontend for <%= _.slugify(name) %>",
     "version": "1.0.0",
-    "homepage": "https://<%= _.slugify(themeName) %>.de",
+    "homepage": "https://<%= _.slugify(name) %>.de",
     "author": "Ade25/Kreativkombinat",
     "keywords": [
         "diazo",
@@ -12,7 +12,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/a25kk/<%= _.slugify(themeName) %>.git"
+        "url": "https://github.com/a25kk/<%= _.slugify(name) %>.git"
     },
     "license": "MIT",
     "devDependencies": {

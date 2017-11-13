@@ -63,16 +63,19 @@ module.exports = class extends Generator {
 
   writing() {
     this._writingGulpfile();
-   // this._writingPackageJSON();
-   // this._writingBabel();
-   // this._writingGit();
-   // this._writingBower();
-   // this._writingEditorConfig();
-   // this._writingH5bp();
-   // this._writingStyles();
-   // this._writingScripts();
-   // this._writingHtml();
-   // this._writingMisc();
+    this._writingPackageConfig();
+    this._writingPackageJSON();
+    this._writingBabel();
+    this._writingGit();
+    this._writingEditorConfig();
+    this._writingAppDirectory();
+    this._writingThemeComponents();
+    this._writingThemeManifest();
+    this._writingStyles();
+    this._writingScripts();
+    this._writingHtml();
+    this._writingReadMe();
+    this._writingMisc();
 
 
   _writingGulpfile() {
@@ -88,6 +91,162 @@ module.exports = class extends Generator {
       }
     );
   }
+
+  _writingPackageConfig() {
+    this.fs.copyTpl(
+      this.templatePath('_config.js'),
+      this.destinationPath('config.js'),
+      {
+        date: (new Date).toISOString().split('T')[0],
+        name: this.pkg.name,
+        version: this.pkg.version,
+        includeBabel: this.options['babel'],
+        testFramework: this.options['test-framework']
+      }
+    );
+  }
+
+  _writingPackageJSON() {
+    this.fs.copyTpl(
+      this.templatePath('_package.json'),
+      this.destinationPath('package.json'),
+      {
+        date: (new Date).toISOString().split('T')[0],
+        name: this.pkg.name,
+        version: this.pkg.version
+      }
+    );
+  }
+
+  _writingBabel() {
+    this.fs.copy(
+      this.templatePath('babelrc'),
+      this.destinationPath('.babelrc')
+    );
+  }
+
+  _writingGit() {
+    this.fs.copy(
+      this.templatePath('gitignore'),
+      this.destinationPath('.gitignore'));
+
+    this.fs.copy(
+      this.templatePath('gitattributes'),
+      this.destinationPath('.gitattributes'));
+  }
+
+  _writingEditorConfig() {
+    this.fs.copy(
+      this.templatePath('editorconfig'),
+      this.destinationPath('.editorconfig')
+    );
+  }
+
+  _writingAppDirectory() {
+    mkdirp('app');
+  }
+
+  _writingThemeComponents() {
+
+    this.fs.copy(
+      this.templatePath('rules.xml'),
+      this.destinationPath('rules.xml')
+    );
+
+    this.fs.copy(
+      this.templatePath('_config.yml'),
+      this.destinationPath('config.yml')
+    );
+    this.fs.copy(
+      this.templatePath('overrides'),
+      this.destinationPath('app/overrides')
+    );
+  }
+
+  _writingThemeManifest() {
+    this.fs.copyTpl(
+      this.templatePath('_manifest.cfg'),
+      this.destinationPath('manifest.cfg'),
+      {
+        date: (new Date).toISOString().split('T')[0],
+        name: this.pkg.name,
+        version: this.pkg.version
+      }
+    );
+  }
+
+  _writingStyles() {
+    this.fs.copy(
+      this.templatePath('src'),
+      this.destinationPath('app/src'),
+    );
+  }
+
+  _writingScripts() {
+    mkdirp('app/scripts');
+    this.fs.copyTpl(
+      this.templatePath('app.js'),
+      this.destinationPath('app/scripts/app.js'),
+    );
+  }
+
+  _writingHtml() {
+    this.fs.copy(
+      this.templatePath('layouts'),
+      this.destinationPath('app/_layouts')
+    );
+
+    this.fs.copy(
+      this.templatePath('includes/components'),
+      this.destinationPath('app/_includes/components')
+    );
+
+    this.fs.copy(
+      this.templatePath('includes/layout'),
+      this.destinationPath('app/_includes/layout')
+    );
+    mkdirp('app/_includes/base');
+    this.fs.copyTpl(
+      this.templatePath('includes/base/head.html'),
+      this.destinationPath('app/_includes/base/head.html')
+    );
+    this.fs.copy(
+      this.templatePath('includes/base/piwik.html'),
+      this.destinationPath('app/_includes/base/piwik.html')
+    );
+  }
+
+  _writingReadMe() {
+    this.fs.copyTpl(
+      this.templatePath('README.md'),
+      this.destinationPath('README.md'),
+      {
+        date: (new Date).toISOString().split('T')[0],
+        name: this.pkg.name,
+        version: this.pkg.version,
+      }
+    );
+  }
+
+
+  _writingMisc() {
+    mkdirp('app/assets');
+    mkdirp('app/assets/images');
+  }
+
+
+
+  install() {
+    const hasYarn = commandExists('yarn');
+    this.installDependencies({
+      npm: !hasYarn,
+      bower: true,
+      yarn: hasYarn,
+      skipMessage: this.options['skip-install-message'],
+      skipInstall: this.options['skip-install']
+    });
+}
+
 
 };
 

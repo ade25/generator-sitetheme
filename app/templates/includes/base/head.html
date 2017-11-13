@@ -2,11 +2,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>
-  {% if page.title == "Bootstrap" %}
-    {{ page.title }}
-  {% else %}
-    {{ page.title }} &middot; Sitename
-  {% endif %}
+    {{ page.title }} &middot; <%= name %> Sitetheme
 </title>
+<script>
+    window.lazySizesConfig = window.lazySizesConfig || {};
+    window.lazySizesConfig.lazyClass = 'lazy-load';
+    window.lazySizesConfig.loadedClass = 'image--loaded';
+</script>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600" rel="stylesheet" />
 <link href="{{ page.base_url }}dist/styles/<%= _.slugify(themeName) %>.min.css" rel="stylesheet">

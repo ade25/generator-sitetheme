@@ -1,12 +1,6 @@
-# Compiling theme components
+#  Theme
 
-## Status Note
 
-This project is undergoing major changes and must be considered alpha state right now. The relevant parts under consideration are
-
-- LESS to SASS migration
-- Grunt to Gulp migration
-- styleguide integration
 
 
 ## Documentation (DEPRECATED)
