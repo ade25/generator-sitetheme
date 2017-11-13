@@ -1,51 +1,69 @@
 //
-// Navlist based on portlet-navigation
+// Navigation Card Styles
 // ------------------------------------------------------
 
-.app-card-nav {
-  .app-card-header {
-    display: none;
-  }
-  .app-card-main {
-    padding: 0;
-    border: 0px solid $gray-lighter;
-  }
+
+.app-nav-tree {
+    padding: 1rem;
+    border: 1px solid $gray-400;
 }
 
-.app-nav-list {
-  padding-left: 0;
-  list-style: none;
-  ul {
+
+.app-nav__list {
+    padding-left: 0;
+    list-style: none;
+    &--level-1,
+    &--level-2 {
+        margin-left: .5rem;
+    }
+}
+
+.app-nav-tree-list {
+    padding-left: 0;
+    list-style: none;
+    li {
+        width: 100%;
+    }
+}
+
+.app-nav__list-item {
+    margin-left: 0;
+    padding: .5rem .25rem;
+    &:not(last) {
+        margin-bottom: .25rem;
+        border-bottom: 1px solid $app-gray;
+    }
+    &:last-of-type {
+        border-bottom: 0px;
+    }
+}
+
+.app-nav__list-link {
+    color: $app-primary;
+    &:hover {
+        color: darken($app-primary, 10%);
+    }
+    &.navTreeCurrentNode {
+        color: $app-gray;
+    }
+}
+
+.app-nav__list-link--open {
+    color: $app-primary;
+}
+
+.app-nav__list-link--active {
+    color: $app-primary;
+}
+
+.app-nav__list--level-0 {
     margin-bottom: 0;
-  }
 }
 
-.app-nav-list-item {
-  margin-left: 0;
-  //padding: .5rem .25rem;
-  &:not(last) {
-    margin-bottom: 0;
-    border-bottom: 1px solid #fff;
-  }
+.app-nav__list--level-1 {
+    margin-left: 0;
 }
 
-.app-nav-list-link {
-  display: inline-block;
-  width: 100% !important;
-  color: $app-secondary !important;
-  padding: .5rem 1rem;
-  background: $gray-lighter;
-  &:hover {
-    color: #fff !important;
-    text-decoration: none;
-    background: $app-secondary;
-  }
-  &.navTreeCurrentNode {
-    color: #fff !important;
-    background: $app-secondary;
-  }
-  @include when-inside('.app-nav-list-item-active') {
-    color: #fff !important;
-    background: $link-color;
-  }
+
+.app-nav__list--level-2 {
 }

@@ -33,25 +33,6 @@
     }
 }
 
-//== Card layout
-//
-//## Reflow card contents based on viewport size
-.app-card-header {
-  @include clearfix;
-  padding: $card-spacer-y $card-spacer-x;
-  background: $card-cap-bg;
-}
-
-//** Card content
-.app-card-main {
-  @include clearfix;
-  padding: $card-spacer-y $card-spacer-x;
-}
-
-//** Card footer
-.app-card-footer {
-  padding: $card-spacer-y $card-spacer-x;
-}
 
 //== Gutter
 //
@@ -65,10 +46,32 @@
   }
 }
 
+
+//== Card layout
+//
+//## Reflow card contents based on viewport size
+.app-card__header {
+  @include clearfix;
+  padding: $card-spacer-y $card-spacer-x;
+  background: $card-cap-bg;
+}
+
+//** Card content
+.app-card__main {
+  @include clearfix;
+  padding: $card-spacer-y $card-spacer-x;
+}
+
+//** Card footer
+.app-card__footer {
+  padding: $card-spacer-y $card-spacer-x;
+}
+
+
 //== Embedded card
 //
 //## Remove spacing for card inside card usecase
-.app-subcard {
+.app-card--level-2 {
   margin-left: 0;
   margin-right: 0;
   margin-bottom: 0;
@@ -79,13 +82,13 @@
 //== Card title
 //
 //## Title is used inside the card-main container
-.app-card-title {
+.app-card__title {
   font-size: 1.25rem;
   font-weight: 500;
 }
 
 //** Set card content specific styles
-.app-card-content {
+.app-card__content {
   padding-top: 1rem;
   font-size: 1rem;
 }
@@ -95,7 +98,7 @@
 //
 //## Provide call to actions and descriptions on empty cards
 //## by providing highlighted card content
-.app-card-placeholder {
+.app-card__placeholder {
   margin: 0.5rem auto;
   padding: 1rem;
   text-align: center;
@@ -106,7 +109,7 @@
 }
 
 //** Round hellip sign
-.app-card-placeholder-sign {
+.app-card__placeholder--sign {
   @include size(4rem);
   margin: 0 auto;
   padding-top: 0.5rem;

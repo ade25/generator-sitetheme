@@ -142,10 +142,6 @@ module.exports = class extends Generator {
     );
   }
 
-  _writingAppDirectory() {
-    mkdirp('app');
-  }
-
   _writingThemeComponents() {
 
     this.fs.copy(
@@ -178,7 +174,7 @@ module.exports = class extends Generator {
   _writingStyles() {
     this.fs.copy(
       this.templatePath('src'),
-      this.destinationPath('app/src'),
+      this.destinationPath('app'),
     );
   }
 
