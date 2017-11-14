@@ -13,6 +13,7 @@ const browserSync = bsCreate();
 var runSequence = require('run-sequence');
 
 var cp = require('child_process');
+var es = require('event-stream');
 var pkg = require('./package.json');
 var cfg = require('./config.json');
 var fs = require('fs');
@@ -229,14 +230,17 @@ gulp.task('images', () => {
 ;
 
 gulp.task('collect-scripts', () => {
-    return gulp.src(cfg.paths.src + cfg.scripts.src)
-        .pipe($.plumber({
-            errorHandler: function (error) {
-                console.log(error.message);
-                this.emit('end');
-            }
-        }))
-        .pipe(gulp.dest(cfg.paths.dist + 'scripts/'))
+    var scriptSources = cfg.scripts.src;
+    return es.merge(scriptSources.map(function(obj) {
+        return gulp.src(cfg.paths.src + obj)
+            .pipe($.plumber({
+                errorHandler: function (error) {
+                    console.log(error.message);
+                    this.emit('end');
+                }
+            }))
+            .pipe(gulp.dest(cfg.paths.dist + 'scripts/'))
+        }));
 })
 ;
 

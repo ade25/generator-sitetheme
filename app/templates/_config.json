@@ -22,26 +22,28 @@
   },
   "scripts": {
     "src": [
-        "mailcheck/src/mailcheck.js",
         "JVFloat/jvfloat.js",
+        "flickity/dist/flickity.pkgd.js",
+        "fontfaceobserver/fontfaceobserver.js",
         "hideShowPassword/hideShowPassword.js",
         "lazysizes/lazysizes-umd.js",
         "lazysizes/plugins/parent-fit/ls.parent-fit.js",
-        "respimage/respimage.js",
-        "flickity/dist/flickity.pkgd.js",
-        "fontfaceobserver/fontfaceobserver.js"
+        "mailcheck/src/mailcheck.js",
+        "requirejs/requires.js",
+        "respimage/respimage.js"
 
     ],
     "base": [
-      "jquery/dist/jquery.js",
-      "fontfaceobserver/fontfaceobserver.js",
-      "mailcheck/src/mailcheck.js",
       "JVFloat/jvfloat.js",
+      "flickity/dist/flickity.pkgd.js",
+      "fontfaceobserver/fontfaceobserver.js",
       "hideShowPassword/hideShowPassword.js",
-      "lazysizes/plugins/ls.parent-fit.js",
+      "jquery/dist/jquery.js",
       "lazysizes/lazysizes.js",
-      "respimage/respimage.js",
-      "flickity/dist/flickity.pkgd.js"
+      "lazysizes/plugins/ls.parent-fit.js",
+      "mailcheck/src/mailcheck.js",
+      "requirejs/require.js",
+      "respimage/respimage.js"
     ]
   },
   "replacementPatterns": {
