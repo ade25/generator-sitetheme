@@ -3,7 +3,6 @@
 // -----------------------------------------
 
 .app-navbar {
-  @extend .navbar;
 }
 
 //== Navbar header
@@ -41,7 +40,7 @@
     border-color: transparent;
   }
   .icon-bar {
-    background-color: $gray-lighter;
+    background-color: gray('200');
   }
   // Bars
   .icon-bar {
@@ -95,7 +94,6 @@
 
 // Unordered list main navigation
 .app-navbar-nav {
-  @extend .nav;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

@@ -4,8 +4,12 @@
 
 
 .app-nav-tree {
-    padding: 1rem;
-    border: 1px solid $gray-400;
+    display: none;
+    background-color: transparent;
+    font-weight: 500;
+    @include media-breakpoint-up(lg) {
+        display: block;
+    }
 }
 
 
@@ -27,6 +31,7 @@
 }
 
 .app-nav__list-item {
+    text-transform: uppercase;
     margin-left: 0;
     padding: .5rem .25rem;
     &:not(last) {
@@ -39,7 +44,7 @@
 }
 
 .app-nav__list-link {
-    color: $app-primary;
+    color: #000;
     &:hover {
         color: darken($app-primary, 10%);
     }
@@ -62,8 +67,10 @@
 
 .app-nav__list--level-1 {
     margin-left: 0;
+    //margin-top: 1rem;
 }
 
 
 .app-nav__list--level-2 {
+    //border: 1px solid red;
 }

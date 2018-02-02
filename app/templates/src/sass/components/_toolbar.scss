@@ -60,7 +60,6 @@ $plone-screen-lg-min:              1200px;
 //## is optimized for the German language version which requires
 //## more horizontal space due to extended word length
 .app-toolbar-nav {
-    @extend .nav;
     margin-bottom: 1rem;
     font-size: 0.75rem;
     li > a {

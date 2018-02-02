@@ -6,13 +6,21 @@
 //
 // Quickly modify global styling by enabling or disabling optional features.
 
-$enable-flex:               true;
+$enable-caret:              false;
 $enable-rounded:            false;
 $enable-shadows:            false;
 $enable-gradients:          false;
-$enable-transitions:        false;
-$enable-hover-media-query:  false;
+$enable-transitions:        true;
+$enable-hover-media-query:  false; // Deprecated, no longer affects any compiled CSS
 $enable-grid-classes:       true;
+$enable-print-styles:       true;
+
+// Colors
+$theme-colors: (
+    "primary": $app-primary,
+    "secondary": $app-secondary,
+    "danger": $app-red
+);
 
 // Custom webfonts
 // $app-font-family-light:     "DINRoundWeb-Light";
