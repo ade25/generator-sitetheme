@@ -5,7 +5,11 @@ requirejs(['require',
         '/scripts/jvfloat.js',
         '/scripts/respimage.js',
         '/scripts/ls.parent-fit.js',
-        '/scripts/lazysizes-umd.js',],
+        '/scripts/lazysizes-umd.js',
+        '/scripts/a25.js',
+        '/scripts/a25.helpers.js',
+        '/scripts/a25.navbar.js'
+    ],
     function(require, Flickity) {
         'use strict';
 
