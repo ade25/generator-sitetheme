@@ -156,7 +156,7 @@ module.exports = class extends Generator {
 
     this.fs.copy(
       this.templatePath('_config.yml'),
-      this.destinationPath('config.yml')
+      this.destinationPath('_config.yml')
     );
     this.fs.copy(
       this.templatePath('overrides'),
@@ -246,7 +246,7 @@ module.exports = class extends Generator {
     const hasYarn = commandExists('yarn');
     this.installDependencies({
       npm: !hasYarn,
-      bower: true,
+      bower: false,
       yarn: hasYarn,
       skipMessage: this.options['skip-install-message'],
       skipInstall: this.options['skip-install']
