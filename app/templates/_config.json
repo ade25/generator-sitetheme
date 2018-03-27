@@ -2,6 +2,7 @@
   "name": "<%= name %>",
   "paths": {
     "app": "app/",
+    "base": "../",
     "dev": "_site/",
     "dist": "dist/",
     "diazoPrefix": "/++theme++<%= name %>.sitetheme/",
@@ -21,6 +22,11 @@
     "htmlDist": "_includes/base/"
   },
   "scripts": {
+    "app": [
+            "scripts/a25.js",
+            "scripts/a25.helpers.js",
+            "scripts/main.js"
+        ],
     "src": [
         "JVFloat/jvfloat.js",
         "flickity/dist/flickity.pkgd.js",
@@ -47,6 +53,12 @@
     ]
   },
   "replacementPatterns": {
+        "base": [
+            {
+                "match": "/../dist/styles/",
+                "replacement": "/styles/"
+            }
+        ],
         "server": [
             {
                 "match": "../../assets/",

@@ -25,11 +25,11 @@ $ gulp build
 
 Builds theme style and script dependencies with cache busting parameters for production deployment
 
-**Note**: this task does not rebuidl the whole theme distribution like the corresponding grunt task did, since most of the time we only care for updated styles
+**Note**: this task does not rebuild the whole theme distribution like the corresponding grunt task did, since most of the time we only care for updated styles
 
 ```bash
 $ gulp dist
-$ (alias) gulp build-dist
+$ (alias) gulp build:dist
 ```
 
 

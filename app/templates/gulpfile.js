@@ -13,6 +13,7 @@ hub([
     './tasks/jekyll.js',
     './tasks/collect.js',
     './tasks/replace.js',
+    './tasks/revision.js',
     './tasks/inject.js',
     './tasks/styles.js',
     './tasks/scripts.js'
@@ -30,7 +31,7 @@ var cfg = require('./config.json');
 var fs = require('fs');
 
 
-gulp.task('browser-sync', function () {
+gulp.task('dev:browser-sync', function () {
     browserSync.init({
         notify: false,
         port: 9499,
@@ -45,39 +46,17 @@ gulp.task('browser-sync', function () {
     });
 });
 
-gulp.task('bs-reload', function () {
+gulp.task('dev:bs-reload', function () {
     browserSync.reload();
 });
 
-gulp.task('extras', () => {
-  return gulp.src([
-    'app/*',
-    '!app/*.html'
-  ], {
-    dot: true
-  }).pipe(gulp.dest('dist'));
-});
 
-gulp.task('revreplace', () => {
-    var manifest = gulp.src(cfg.paths.dist + '/styles/rev-manifest.json');
-return gulp.src(cfg.paths.dev + '/{,*/}*.html')
-    .pipe($.revReplace({manifest: manifest}))
-    .pipe(gulp.dest(cfg.paths.dev));
-})
-;
-
-
-gulp.task('serve', ['styles', 'scripts', 'jekyll:build', 'replace', 'html'], () => {
+gulp.task('dev:serve', ['build:dist:base'], () => {
     browserSync.init({
     notify: false,
     port: 9499,
     server: {
-        baseDir: ['.tmp', cfg.paths.dist],
-        routes: {
-            '/scripts': cfg.paths.dist + '/scripts',
-            '/styles': cfg.paths.dist + '/styles',
-            '/assets': cfg.paths.dist + '/assets',
-        }
+        baseDir: [cfg.paths.base + cfg.paths.dist]
     }
 });
 
@@ -92,67 +71,107 @@ gulp.watch(cfg.paths.app + "scripts/**/*.js", ['scripts']);
 gulp.watch(cfg.paths.app + "{,*/}*.html", ['jekyll:build', 'html']);
 });
 
-gulp.task('default', ['browser-sync'], function () {
+gulp.task('default', ['dev:browser-sync'], function () {
     gulp.watch(cfg.paths.app + "sass/**/*.scss", ['styles']);
     gulp.watch(cfg.paths.app + "scripts/**/*.js", ['scripts']);
     gulp.watch(cfg.paths.app + "*.html", ['bs-reload']);
 });
 
 
-gulp.task('watch-styles', ['styles'], function() {
+gulp.task('dev:watch:styles', ['styles'], function() {
   return global.browserSync.reload('*.css');
 });
 
 
-gulp.task('watch', function () {
-    gulp.watch(cfg.paths.app + "sass/**/*.scss", ['watch-styles']);
+gulp.task('dev:watch', function () {
+    gulp.watch(cfg.paths.app + "sass/**/*.scss", ['dev:watch:styles']);
 });
 
 
 gulp.task('build:init', function(done) {
     runSequence(
         'clean:dist',
-        ['collect:fonts', 'collect:images'],
+        ['collect:fonts', 'collect:images', 'collect:scripts:vendor'],
         done);
 });
 
-
-gulp.task('build-dev', function(done) {
+gulp.task('build:collect', function(done) {
     runSequence(
-        'clean',
-        ['fonts', 'images'],
-        ['jekyll:build', 'styles', 'scripts'],
-        'replace-pat',
-        'html',
+        ['collect:fonts', 'collect:images', 'collect:scripts:vendor'],
         done);
 });
 
-gulp.task('build-production', function(done) {
+gulp.task('build:base', function(done) {
     runSequence(
-        'clean',
-        ['fonts', 'images'],
-        ['jekyll:build', 'styles', 'scripts'],
-        'replace-server',
-        'html',
+        ['jekyll:build', 'styles:dev', 'collect:scripts:app'],
+        'inject:head:dev',
         done);
 });
 
-gulp.task('build-dist', function(done) {
+gulp.task('build:base:dist', function(done) {
     runSequence(
-        ['styles', 'scripts'],
-        'replace-server',
-        'html',
+        ['jekyll:build', 'styles:dist', 'collect:scripts:app'],
+        'inject:head:dist',
         done);
 });
 
+gulp.task('build:dev', function(done) {
+    runSequence(
+        'clean:dev',
+        'build:collect',
+        'build:base',
+        'replace:base',
+        'collect:html',
+        done);
+});
 
-gulp.task('init', ['build-init']);
+gulp.task('build:pat', function(done) {
+    runSequence(
+        'clean:dev',
+        'build:collect',
+        'build:base',
+        'replace:pat',
+        'collect:html',
+        done);
+});
 
-gulp.task('develop', ['build-dist']);
+gulp.task('build:dist:full', function(done) {
+    runSequence(
+        'build:init',
+        'build:base:dist',
+        'replace:base',
+        'revision:styles',
+        'replace:revision:styles',
+        'collect:html',
+        done);
+});
 
-gulp.task('dist', ['build-dist']);
+gulp.task('build:dist:base', function(done) {
+    runSequence(
+        'build:base:dist',
+        'replace:base',
+        'revision:styles',
+        'replace:revision:styles',
+        'collect:html',
+        done);
+});
 
-gulp.task('build', ['build-production']);
+// Top level tasks
+// Clean distribution directory and start over
+gulp.task('init', ['build:init']);
 
+// Run development build
+gulp.task('develop', ['build:dev']);
+
+// Development build usable with standalone Plone backend
+gulp.task('pat', ['build:pat']);
+
+// Build distribution versions of styles and scripts
+gulp.task('dist', ['build:dist:base']);
+
+// Rebuild whole theme for distribution
+gulp.task('build', ['build:dist:full']);
+
+// Start working with the styles
 gulp.task('default', ['watch']);
 
