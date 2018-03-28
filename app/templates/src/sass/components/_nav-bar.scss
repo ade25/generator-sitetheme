@@ -132,19 +132,11 @@
     &:hover {
         text-decoration: none;
         background: transparent;
-        @include media-breakpoint-up(md) {
-            background: url("../assets/img/strokeTS02.svg") 0 1rem no-repeat;
-            background-size: contain;
-        }
     }
     &--active,
     &--open {
         text-decoration: none;
         background: transparent;
-        @include media-breakpoint-up(md) {
-            background: url("../assets/img/strokeTS02.svg") 0 1rem no-repeat;
-            background-size: contain;
-        }
     }
     @include when-inside('.app-nav--level-1') {
         &:after {
@@ -156,7 +148,6 @@
         padding-right: 0.25rem;
         padding-left: 0.25rem;
         line-height: 1rem;
-        padding-bottom: 2rem;
         &:after {
             display: none;
         }

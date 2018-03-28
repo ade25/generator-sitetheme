@@ -11,7 +11,12 @@
   }
 }
 
-.app-header-content {
+.app-header__content {
   @include make-container();
   @include make-container-max-widths();
+}
+
+.app-header__section {
+    display: block;
+    position: relative;
 }

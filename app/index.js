@@ -67,6 +67,7 @@ module.exports = class extends Generator {
 
   writing() {
     this._writingGulpfile();
+    this._writingGulpTasks();
     this._writingPackageConfig();
     this._writingPackageJSON();
     this._writingBabel();

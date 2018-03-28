@@ -7,7 +7,7 @@
     padding-bottom: $spacer;
 }
 
-.app-footer-content {
+.app-footer__content {
   @include make-container();
   @include make-container-max-widths();
 }

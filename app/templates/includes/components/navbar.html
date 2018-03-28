@@ -1,53 +1,53 @@
-<nav class="app-navbar" id="app-navbar" role="navigation">
-    <div class="app-navbar-header">
-        <div class="app-navbar-header-title">
-            <a class="app-navbar-brand" href="/">Navigation</a>
-        </div>
-        <div class="app-navbar-header-toggle">
-            <button type="button" class="app-navbar-toggle navbar-toggler hidden-md-up" data-toggle="collapse" data-target="#app-navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                &#9776;
-            </button>
-        </div>
+<nav class="app-nav-bar app-nav-bar--hidden" id="app-nav-bar" role="navigation">
+    <div class="app-nav-bar__header">
+        Navigation
+        <button type="button" class="app-nav-bar__toggle app-nav-bar__toggle--close js-nav-toggle">
+            <span class="sr-only">Toggle navigation</span>
+            X
+        </button>
     </div>
-
-    <div class="app-navbar-collapse collapse navbar-toggleable-sm" id="app-navbar-collapse">
-        <ul class="app-navbar-nav" id="app-navbar-nav">
-            <li class="app-navitem active">
-                <a class="app-navitem-tab app-navitem-tab-home" href="{{ page.base_url }}startseite">
-                    <span>Startseite</span>
-                </a>
-            </li>
-            <li class="app-navitem">
-                <a class="app-navitem-tab" href="{{ page.base_url }}section-1">
-                    <span>Section 1</span>
-                </a>
-            </li>
-            <li class="app-navitem">
-                <a class="app-navitem-tab" href="{{ page.base_url }}gesundheut">
-                    <span>Section 2</span>
-                </a>
-            </li>
-            <li class="app-navitem active">
-                <a class="app-navitem-tab" href="{{ page.base_url }}bildung">
-                    <span>Section 3</span>
-                </a>
-            </li>
-            <li class="app-navitem">
-                <a class="app-navitem-tab" href="{{ page.base_url }}pflege">
-                    <span>Section 4 - this is very long</span>
-                </a>
-            </li>
-            <li class="app-navitem">
-                <a class="app-navitem-tab" href="{{ page.base_url }}gastfreundschaft">
-                    <span>Section 5</span>
-                </a>
-            </li>
-            <li class="app-navitem">
-                <a class="app-navitem-tab" href="{{ page.base_url }}spiritualitaet">
-                    <span>Section 6</span>
-                </a>
-            </li>
-        </ul>
-    </div><!-- /.navbar-collapse -->
+    <ul class="app-nav" id="app-nav">
+        <li class="app-nav__item app-nav__item--active">
+            <a class="app-nav__link app-nav__link--home" href="{{ page.base_url }}startseite">
+                <span class="app-nav__tab">Startseite</span>
+            </a>
+        </li>
+        <li class="app-nav__item">
+            <a class="app-nav__link app-nav__link--section-1" href="{{ page.base_url }}section-1">
+                <span class="app-nav__tab">Section 1</span>
+            </a>
+        </li>
+        <li class="app-nav__item">
+            <a class="app-nav__link app-nav__link--section-2" href="{{ page.base_url }}section-2">
+                <span class="app-nav__tab">Section 2</span>
+            </a>
+            <ul class="app-nav app-nav--level-1">
+                <li class="app-nav__item">
+                    <a class="app-nav__link app-nav__link--subsection-1" href="{{ page.base_url }}subsection-1">
+                        <span class="app-nav__tab">Subsection 1</span>
+                    </a>
+                </li>
+                <li class="app-nav__item">
+                    <a class="app-nav__link app-nav__link--subsection-1" href="{{ page.base_url }}subsection-1">
+                        <span class="app-nav__tab">Subsection 1</span>
+                    </a>
+                </li>
+                <li class="app-nav__item">
+                    <a class="app-nav__link app-nav__link--subsection-1" href="{{ page.base_url }}subsection-1">
+                        <span class="app-nav__tab">Subsection 1</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="app-nav__item">
+            <a class="app-nav__link app-nav__link--section-3" href="{{ page.base_url }}section-3">
+                <span class="app-nav__tab">Section 3</span>
+            </a>
+        </li>
+        <li class="app-nav__item">
+            <a class="app-nav__link app-nav__link--section-4" href="{{ page.base_url }}section-4">
+                <span class="app-nav__tab">Section 4</span>
+            </a>
+        </li>
+    </ul>
 </nav>
