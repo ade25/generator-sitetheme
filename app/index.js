@@ -96,6 +96,13 @@ module.exports = class extends Generator {
     );
   }
 
+  _writingGulpTasks() {
+    this.fs.copy(
+      this.templatePath('tasks'),
+      this.destinationPath('tasks'),
+    );
+  }
+
   _writingPackageConfig() {
     this.fs.copyTpl(
       this.templatePath('_config.json'),
