@@ -1,42 +1,49 @@
 import gulp from 'gulp';
+import pump from 'pump';
 import gulpLoadPlugins from 'gulp-load-plugins';
 const $ = gulpLoadPlugins();
 
 var es = require('event-stream');
 var cfg = require('./../config.json');
 
-var scriptSources = cfg.scripts.src;
-var scriptSourcesApp = cfg.scripts.app;
+var scriptSourcesVendor = {
+    'vendor': cfg.scripts.src
+}
+var scriptSourcesApp = {
+    'app': cfg.scripts.app
+}
 
-gulp.task('collect:scripts:vendor', () => {
-    return es.merge(scriptSources.map(function(obj) {
-        return gulp.src(cfg.paths.base + cfg.paths.src + obj)
-            .pipe($.plumber({
-                errorHandler: function (error) {
-                    console.log(error.message);
-                    this.emit('end');
-                }
-            }))
-            .pipe(gulp.dest(cfg.paths.base + cfg.paths.dist + 'scripts/'))
-    }));
-})
-;
+var scriptCollectionVendor = Object.keys(scriptSourcesVendor);
+var scriptCollectionApp = Object.keys(scriptSourcesApp);
 
-gulp.task('collect:scripts:app', () => {
-    return es.merge(scriptSourcesApp.map(function(obj) {
-        return gulp.src(cfg.paths.base + cfg.paths.app + obj)
-            .pipe($.plumber({
-                errorHandler: function (error) {
-                    console.log(error.message);
-                    this.emit('end');
-                }
-            }))
-            .pipe(gulp.dest(cfg.paths.base + cfg.paths.dist + 'scripts/'))
-    }));
-})
-;
+scriptCollectionVendor.forEach(function (libName) {
+    gulp.task( 'scripts:'+libName, function () {
+        return gulp.src(scriptSourcesVendor[libName], {'cwd': cfg.paths.src})
+            .pipe(gulp.dest(cfg.paths.dist + 'scripts/'));
+    });
+});
 
-gulp.task('collect:images', () => {
+gulp.task('collect:scripts:vendor',
+    gulp.parallel(
+        scriptCollectionVendor.map(function(name) { return 'scripts:'+name; })
+    )
+);
+
+scriptCollectionApp.forEach(function (libName) {
+    gulp.task( 'scripts:'+libName, function () {
+        return gulp.src(scriptSourcesApp[libName], {'cwd': cfg.paths.app })
+            .pipe(gulp.dest(cfg.paths.dist + 'scripts/'));
+    });
+});
+
+gulp.task('collect:scripts:app',
+    gulp.parallel(
+        scriptCollectionApp.map(function(name) { return 'scripts:'+name; })
+    )
+);
+
+
+export function collectImages() {
     return gulp.src(cfg.paths.base + cfg.paths.app + 'assets/images/**/*')
         .pipe($.if($.if.isFile, $.cache($.imagemin({
             progressive: true,
@@ -50,18 +57,23 @@ gulp.task('collect:images', () => {
                 this.end();
             })))
         .pipe(gulp.dest(cfg.paths.base + cfg.paths.dist + 'assets/images'));
-})
-;
+};
 
-gulp.task('collect:fonts', () => {
+gulp.task('collect:images', collectImages);
+
+export function collectFonts() {
     return gulp.src(cfg.paths.base + cfg.paths.app + 'assets/fonts/**/*')
         .pipe(gulp.dest(cfg.paths.base + cfg.paths.dist + 'assets/fonts'));
-})
-;
+};
 
-gulp.task('collect:html', () => {
+collectFonts.description = 'Copy custom web fonts to distribution directory';
+
+gulp.task('collect:fonts', collectFonts);
+
+export function collectHtml() {
     return gulp.src(cfg.paths.base + cfg.paths.dev + '{,*/}*.html')
         .pipe($.minifyHtml())
         .pipe(gulp.dest(cfg.paths.base + cfg.paths.dist));
-})
-;
+};
+
+gulp.task('collect:html', collectHtml);
