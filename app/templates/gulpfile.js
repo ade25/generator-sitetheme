@@ -80,6 +80,15 @@ buildPat.description = 'Build distribution for ++theme++ support';
 
 gulp.task('build:pat', buildPat);
 
+const buildDevelopment = gulp.series(
+    'build:base',
+    'replace:base',
+    'collect:html'
+);
+buildDevelopment.description = 'Build local development environment';
+
+gulp.task('build:dev', buildDevelopment);
+
 
 const buildDistBase = gulp.series(
     'build:base',
@@ -124,16 +133,9 @@ gulp.task('dev:watch', function () {
         )
     );
 });
-// Clean distribution directory and start over
-// gulp.task('init', function(done) {
-//     runSequence(
-//         'build:init',
-//         'build:base',
-//         done);
-// });
 
 // Run development build
-// gulp.task('develop', ['build:dev']);
+gulp.task('collect', buildCollect);
 
 // Build distribution versions of styles and scripts
 gulp.task('dist', buildDistBase);

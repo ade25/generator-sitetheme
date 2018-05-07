@@ -44,7 +44,7 @@ gulp.task('collect:scripts:app',
 
 
 export function collectImages() {
-    return gulp.src(cfg.paths.base + cfg.paths.app + 'assets/images/**/*')
+    return gulp.src(cfg.paths.app + 'assets/images/**/*')
         .pipe($.if($.if.isFile, $.cache($.imagemin({
             progressive: true,
             interlaced: true,
@@ -56,14 +56,14 @@ export function collectImages() {
                 console.log(err);
                 this.end();
             })))
-        .pipe(gulp.dest(cfg.paths.base + cfg.paths.dist + 'assets/images'));
+        .pipe(gulp.dest(cfg.paths.dist + 'assets/images'));
 };
 
 gulp.task('collect:images', collectImages);
 
 export function collectFonts() {
-    return gulp.src(cfg.paths.base + cfg.paths.app + 'assets/fonts/**/*')
-        .pipe(gulp.dest(cfg.paths.base + cfg.paths.dist + 'assets/fonts'));
+    return gulp.src(cfg.paths.app + 'assets/fonts/**/*')
+        .pipe(gulp.dest(cfg.paths.dist + 'assets/fonts'));
 };
 
 collectFonts.description = 'Copy custom web fonts to distribution directory';
@@ -71,9 +71,9 @@ collectFonts.description = 'Copy custom web fonts to distribution directory';
 gulp.task('collect:fonts', collectFonts);
 
 export function collectHtml() {
-    return gulp.src(cfg.paths.base + cfg.paths.dev + '{,*/}*.html')
+    return gulp.src(cfg.paths.dev + '{,*/}*.html')
         .pipe($.minifyHtml())
-        .pipe(gulp.dest(cfg.paths.base + cfg.paths.dist));
+        .pipe(gulp.dest(cfg.paths.dist));
 };
 
 gulp.task('collect:html', collectHtml);
