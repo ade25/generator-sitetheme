@@ -7,7 +7,6 @@
 @import 'utils/functions';
 @import 'utils/mixins.scss';
 
-// @import 'vendors/ionicons';
 @import 'vendors/bootstrap';
 // @import 'vendors/flickity';
 
@@ -20,6 +19,7 @@
 @import 'layout/header';
 @import 'layout/footer';
 @import 'layout/forms';
+@import 'layout/navbar';
 
 @import 'components/toolbar';
 @import 'components/buttons';
@@ -27,8 +27,8 @@
 @import 'components/alerts';
 @import 'components/pathbar';
 @import 'components/brand';
+@import 'components/navlist';
 @import 'components/nav-bar';
-@import 'components/actionbar';
 @import 'components/banner';
 @import 'components/cards';
 
