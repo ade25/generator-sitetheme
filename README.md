@@ -46,7 +46,7 @@ Note: to make this setting persist, add the source line to your `~/.profile` or 
 Install the latest stable version of **node** (which will include the matching release of **npm**) by running:
 
 ```bash
-$ nvm install stable
+$ nvm install node --reinstall-packages-from=node
 $ nvm alias default stable
 ```
 
@@ -60,7 +60,7 @@ $ cat ~/.nvmrc
 After you have installed and setup **npm** just open a Terminal window and install YEOMAN:
 
 ```
-$ npm install -g yo gulp
+$ npm install -g yo gulp-cli
 ```
 
 Done and ready to go!
