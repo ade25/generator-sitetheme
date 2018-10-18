@@ -93,16 +93,14 @@
         <drop css:content="meta[name='viewport']" />
         <before content="/html/head/meta" theme="/html/head/title" />
 
+        <!-- Add stylesheets and javascript -->
+        <before css:theme="head link[rel='stylesheet']"
+                content="/html/head/link"
+        />
         <after
-                content="/html/head/link | /html/head/style | /html/head/script"
+                content="/html/head/style | /html/head/script"
                 theme-children="/html/head"
         />
-
-        <rules css:if-content="body.userrole-authenticated">
-            <!-- Drop style tags from theme template -->
-            <drop theme="/html/head/style" />
-        </rules>
-
         <drop theme="/html/body/script" />
 
         <!-- Custom favicon implementation does automatically add
