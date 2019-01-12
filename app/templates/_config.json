@@ -52,6 +52,18 @@
       "respimage/respimage.js"
     ]
   },
+  "sprite": {
+    "shape": {
+      "dest": "out/intermediate-svg"
+    },
+    "mode": {
+      "symbol": {
+        "render": {
+            "scss": true
+        }
+      }
+    }
+  };
   "replacementPatterns": {
         "base": [
             {
