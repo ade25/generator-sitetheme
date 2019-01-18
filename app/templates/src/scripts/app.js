@@ -12,21 +12,17 @@ requirejs(['require',
         '/scripts/jvfloat.js',
         '/scripts/respimage.js',
         '/scripts/ls.parent-fit.js',
-        '/scripts/lazysizes-umd.js',
-        '/scripts/a25.js',
-        '/scripts/a25.helpers.js'
+        '/scripts/lazysizes-umd.js'
     ],
     function(require, svg4everybody, Flickity, eventbox, interdependentselect, navbar, dropdown, xray, Dropmic) {
         'use strict';
 
-        if (typeof a25 == 'undefined') {
-            var a25 = {};
-        }
 
         // Trigger font face observer protection
         var fontPrimary = new FontFaceObserver('EB Garamond', {
             weight: 400
         });
+
         var fontSecondary = new FontFaceObserver('TAZ');
 
         fontPrimary.load(null, 3000).then(function () {
@@ -37,8 +33,9 @@ requirejs(['require',
             document.documentElement.className += " font__secondary--loaded";
         });
 
-        Promise.all([fontPrimary.load(null, 3000),
-                     fontSecondary.load(null, 3000)
+        Promise.all([
+            fontPrimary.load(null, 3000),
+            fontSecondary.load(null, 3000)
         ])
             .then(function () {
                 document.documentElement.className += " fonts--loaded";
@@ -63,35 +60,6 @@ requirejs(['require',
         navbar.init({
             backdropDisplay: true
         });
-
-        // Quick links
-        // dropdown.init({});
-        // Initialize XHR Event Box
-        eventbox.init();
-
-        // Default interdependent select boxes used in module editor
-        var _selector_defaults = {
-            selector: '.js-module-selector',
-            classVisible: 'module__select--visible fadeInDown',
-            classHidden: 'module__select--hidden fadeOutUp',
-            themeSelectorBaseId: '#selector__core-theme--',
-            filterFormAction: '.js-filter-action',
-            filterFormActionHidden: 'filter__block--hidden',
-            filterFormActionVisible: 'filter__block--visible'
-        };
-        interdependentselect.init(_selector_defaults);
-
-        // Course filter select boxes
-        var _selector_filter = {
-            selector: '.js-filter-box',
-            classVisible: 'form-field__select--visible fadeIn',
-            classHidden: 'form-field__select--hidden fadeOut',
-            themeSelectorBaseId: '#selector__core-theme--',
-            filterFormAction: '.js-filter-action',
-            filterFormActionHidden: 'filter__block--hidden',
-            filterFormActionVisible: 'filter__block--visible'
-        };
-        interdependentselect.init(_selector_filter);
 
         // Banner
         // TODO: refactor as independent script
