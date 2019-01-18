@@ -167,8 +167,8 @@ module.exports = class extends Generator {
       this.destinationPath('_config.yml')
     );
     this.fs.copy(
-      this.templatePath('overrides'),
-      this.destinationPath('app/overrides')
+      this.templatePath('tinymce-templates'),
+      this.destinationPath('app/tinymce-templates')
     );
   }
 
@@ -193,41 +193,6 @@ module.exports = class extends Generator {
   }
 
   _writingScripts() {
-    mkdirp('app/scripts');
-    this.fs.copyTpl(
-      this.templatePath('app.js'),
-      this.destinationPath('app/scripts/app.js'),
-    );
-  }
-
-  _writingHtml() {
-    this.fs.copy(
-      this.templatePath('layouts'),
-      this.destinationPath('app/_layouts')
-    );
-
-    this.fs.copy(
-      this.templatePath('includes/components'),
-      this.destinationPath('app/_includes/components')
-    );
-
-    this.fs.copy(
-      this.templatePath('includes/layout'),
-      this.destinationPath('app/_includes/layout')
-    );
-    mkdirp('app/_includes/base');
-    this.fs.copyTpl(
-      this.templatePath('includes/base/head.html'),
-      this.destinationPath('app/_includes/base/head.html'),
-      {
-        name: this.appName,
-        title: this.projectName
-      }
-    );
-    this.fs.copy(
-      this.templatePath('includes/base/piwik.html'),
-      this.destinationPath('app/_includes/base/piwik.html')
-    );
   }
 
   _writingReadMe() {
@@ -244,18 +209,19 @@ module.exports = class extends Generator {
 
 
   _writingMisc() {
-    mkdirp('app/assets');
-    mkdirp('app/assets/images');
+    this.fs.copy(
+      this.templatePath('web_font.list'),
+      this.destinationPath('web_font.list')
+    );
   }
 
 
 
   install() {
-    const hasYarn = commandExists('yarn');
     this.installDependencies({
-      npm: !hasYarn,
+      npm: true,
       bower: false,
-      yarn: hasYarn,
+      yarn: false,
       skipMessage: this.options['skip-install-message'],
       skipInstall: this.options['skip-install']
     });
